@@ -1,0 +1,277 @@
+% Dokumentenklasse
+\documentclass[
+% globale Schriftgröße
+    10pt,
+% setzt Absatzabstand hoch
+    parskip=half-,
+% Format
+    paper=a4,
+% lädt Sprachpakete
+    english,ngerman,
+% left align equations
+    fleqn,
+]{scrartcl}
+
+% //////////////////// Pakete laden ////////////////////
+\usepackage{amsmath}
+% modifiziert amsmath
+\usepackage{mathtools}
+% mathematische Symbole, f"ur \ceckmarks
+\usepackage{amssymb}
+% f"ur proof
+\usepackage{amsthm}
+% f"ur \mathscr
+\usepackage{mathrsfs}
+\usepackage{latexsym}
+% f"ur bessere Worttrennung
+\usepackage{microtype}
+% Spracheinstellung
+\usepackage[ngerman]{babel}
+% f"ur Quellcode
+\usepackage{verbatim}
+\usepackage{listings}
+% f"ur Umlaute und Sonderzeichen in der Tex-Datei
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+% f"ur Tabellen mit gleicher Spaltenbreite und automatischen Umbr"uchen
+\usepackage{tabularx}
+\usepackage{fullpage}
+% f"ur multirow in tabulars
+\usepackage{multirow}
+\usepackage{rotate}
+% um Farben zu benutzen, kann mehr als das Paket color
+\usepackage[cmyk,table]{xcolor}
+% Verlinkungen
+\usepackage[
+% farbige Schrift, statt farbiger Rahmen
+    colorlinks,
+% verlinkt im Abb.Verzeichnis Seitenzahl statt Bildunterschrift
+    linktocpage,
+% setzt Farbe der Links auf blau
+    linkcolor=blue
+]{hyperref}
+% nur f"ur digitale Anwendungen, url = "http://www.example.com"
+% f"ur Webadressen wie e-mail usw.: "\url{http://www.example.com}"
+\usepackage{url}
+% f"ur versch. Aufzählungezeichen wie z.B. a)
+\usepackage{enumerate}
+% folgt ein Leerzeichen nach einem \Befehl, wird es nicht verschluckt
+\usepackage{xspace}
+% f"ur das Durchstreichen u.a. in Matheformeln mit \cancel
+\usepackage{cancel}
+% f"ur \forloop und \whiledo
+\usepackage{ifthen}
+
+% //////////////////// Syntaxhervorhebung ////////////////////
+\lstloadlanguages{Python, Haskell, [LaTeX]TeX, Java}
+\lstset{%
+% \scriptsize: die Fontgröße f"ur den Quelltext
+   basicstyle=\footnotesize\ttfamily,
+% legt Farbe der Box fest
+   backgroundcolor = \color{bgcolour},
+% automatische Umbr"uche nur nach Leerzeichen?
+   breakatwhitespace=false,
+% automatische Zeilenumbr"uche?
+   breaklines=true,
+% die "uberschrift steht oben, t = top
+   captionpos=t,
+% Formatierung der Kommentare
+   commentstyle=\color{codeblue}\ttfamily,
+% einfacher Rahmen um den Quelltext
+   frame=single,
+% Behalte Leerzeichen im Quelltext. N"utzlich, um
+% Einr"uckungen zu erhalten (benötigt eventuell columns=flexible)
+   keepspaces=true,
+% Formatierung der Schl"usselwörter
+   keywordstyle=\bfseries\ttfamily\color{codepurple},
+% Wohin mit den Zeilennummern?
+% mögliche Werte sind: none, left, right
+   numbers=left,
+% Formatierung der Zeilennummern
+   numberstyle=\tiny\color{codegreen},
+% Abstand zwischen Zeilennummern und Quelltext
+   numbersep=5pt,
+% nummeriert nur jede i-te Zeile
+   stepnumber=1,
+% Zeige alle Leerzeichen mit Hilfe von speziellen Unterstrichen;
+% "uberschreibt 'showstringspaces'
+   showspaces=false,
+% unterstreiche Leerzeichen nur in Zeichenketten
+   showstringspaces=false,
+% Zeige Tabulatoren in Zeichenketten mit Hilfe von speziellen
+% Unterstrichen
+   showtabs=false,
+   flexiblecolumns=false,
+% Schrittweite zwischen Zeilennummern.
+% Der Wert 1 bedeutet, dass jede Zeile nummeriert wird.
+   tabsize=1,
+% Formatierung der Zeichenketten.
+   stringstyle=\color{orange}\ttfamily,
+% leere Zeilen werden nicht nummeriert
+   numberblanklines=false,
+% Abstand zum linken Seitenrand
+   xleftmargin=1.2em,
+% Abstand zum rechten Seitenrand
+   xrightmargin=0.4em,
+   aboveskip=2ex,
+}
+
+\lstdefinestyle{py}{%
+   language=Python,
+}
+\lstdefinestyle{hs}{%
+   language=Haskell,
+}
+\lstdefinestyle{tex}{%
+    language=[LaTeX]TeX,
+% Um LaTex im Quelltext einzuf"ugen
+    escapeinside={\%*}{*)},
+% Hervorhebung der TeX-Schl"usselwörter
+    texcsstyle=*\bfseries\color{blue},
+    morekeywords={*,$,\{,\},\[,\],lstinputlisting,includegraphics,%$
+        rowcolor,columncolor,listoffigures,lstlistoflistings,
+        subsection,subsubsection,textcolor,tableofcontents,colorbox,
+        fcolorbox,definecolor,cellcolor,url,linktocpage,subtitle,
+        subject,maketitle,usetikzlibrary,node,path,addbibresource,
+        printbibliography},
+    numbers=none,
+    numbersep=0pt,
+    xleftmargin=0.4em,
+}
+
+\lstdefinestyle{java}{%
+    language=Java,
+    extendedchars=true,
+}
+
+% f"uge einen x64-Assembler Dialekt hinzu
+\lstdefinelanguage[x64]{Assembler}
+% basiert auf dem "x86masm" Dialekt
+   [x86masm]{Assembler}
+ % zusätzliche Schl"usselwörter
+   {morekeywords={CDQE,CQO,CMPSQ,CMPXCHG16B,JRCXZ,LODSQ,MOVSXD, %
+                  POPFQ,PUSHFQ,SCASQ,STOSQ,IRETQ,RDTSCP,SWAPGS, %
+                  rax,rdx,rcx,rbx,rsi,rdi,rsp,rbp, %
+                  r8,r8d,r8w,r8b,r9,r9d,r9w,r9b}
+}
+
+\lstdefinestyle{c}{
+    language=c,
+    extendedchars=true,
+}
+
+% //////////////////// eigene Anweisungen ////////////////////
+% benötigt package xspace
+\newcommand\N{\mathbb{N}\xspace}
+\newcommand\Q{\mathbb{Q}\xspace}
+\newcommand\R{\mathbb{R}\xspace}
+\newcommand\Z{\mathbb{Z}\xspace}
+\newcommand\ohneNull{\ensuremath{\backslash\lbrace 0\rbrace}}% \{0}
+\newcommand\ohne[1]{\ensuremath{\backslash\lbrace#1\rbrace}}% \{#1}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+
+% //////////////// mathematische Funktionen ////////////////////
+\DeclareMathOperator{\True}{True}
+\DeclareMathOperator{\False}{False}
+
+% //////////////////// eigene Farben ////////////////////
+\let\definecolor=\xdefinecolor
+
+\definecolor{bgcolour}{rgb}{0.97,0.97,0.97}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.35,0.35,0.35}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codeblue}{rgb}{0.4,0.5,1}
+
+% //////////////////// eigene Einstellungen ////////////////////
+
+% verhindert Einr"uckung der 1. Zeile eines Absatzes
+\parindent 0pt
+%
+% <-- Name der "ubungsleitung eintragen
+\newcommand{\tutor}{Florian Hartmann}
+% <-- Nummer im KVV nachschauen
+\newcommand{\tutoriumNo}{4}
+% <-- Nummer des "ubungszettels
+\newcommand{\ubungNo}{12}
+% <-- Name der Lehrveranstaltung eintragen
+\newcommand{\veranstaltung}{Alp3}
+% <-- z.B. SoSo 17, WiSe 17/18
+\newcommand{\semester}{WiSe 17/18}
+% <-- Hier die Namen eintragen
+\newcommand{\studenten}{Merlin Joseph \& Anton Oehler}
+% <-- Hier Anzahl der Aufgaben eintragen
+\newcommand{\aufgNo}{4}
+
+% /////////////////////// BEGIN DOKUMENT /////////////////////////
+\begin{document}
+% ////////////// Bepunktung //////////////
+%linksb"undig
+\makebox[\dimexpr\textwidth][l]{%
+    \begin{minipage}{\linewidth}
+        \newcounter{AufgNo}
+        \setcounter{AufgNo}{\aufgNo}
+        \stepcounter{AufgNo}   % AufgNo++
+        \newcounter{zahl}
+        \def\and{&\xspace}
+        \renewcommand{\arraystretch}{1.3}\setlength{\tabcolsep}{1em}
+        \begin{tabular}{*{\value{AufgNo}}{|c} |}
+            \hline
+             \setcounter{zahl}{1}
+             \whiledo{\value{zahl} < \value{AufgNo}}{%\AufgNo
+                 \thezahl\and\stepcounter{zahl}%
+             } $\sum$ \\ \hline
+             \setcounter{zahl}{1}
+             \whiledo{\value{zahl} < \value{AufgNo}}{%\AufgNo
+                 \phantom{X}\and\stepcounter{zahl}%
+            } \phantom{X}\\ \hline
+        \end{tabular}
+    \end{minipage}
+}
+% ////////////// Daten //////////////
+\begin{center}
+
+{\Large \veranstaltung, \semester}\par
+{\large Tutor\_in: \tutor, Tutorium \tutoriumNo}\par
+{\Large \"Ubung \ubungNo}\par
+{\large \studenten}\par
+\today
+\end{center}
+\vspace{-3ex}             % Abstand
+\rule{\linewidth}{0.8pt}  % horizontale Linie
+
+% /////////////////////// Aufgabe 1 /////////////////////////
+\section*{Aufgabe 1: Editierabstand}
+$k$ := Länge s\\
+$l$ := Länge t\\
+Wir legen, analog zum LCS-Problem eine Tabelle/ Matrix $M$ der Größe
+$(k+1)*(l+1)$ an. Nun wird nacheinander die Tabelle gefüllt:
+
+Das Feld $M_{i,j}$ erhält dabei das Minimum der folgenden Ausdrücke:
+\begin{itemize}
+    \item $M_{i-1,j-1} + 0$, falls $s_i = t_j$
+    \item $M_{i-1,j-1} + 1$ (Ersetzung von $s_i$ durch $t_j$)
+    \item $M_{i,j-1} + 1$ (Einfügung von $t_j$)
+    \item $M_{i-1,j} + 1$ (Löschung von $s_i$)
+\end{itemize}
+Anm.: An den Rändern ($i/j = 0$ sind entsprechend nur Einfügen oder Löschen
+verfügbar.
+
+Am Ende steht in Feld $M_{k,l}$ der minimale Editierabstand.
+
+\section*{Suchen in Zeichenketten}
+\lstinputlisting[language=Python, caption="Naive Implementierung"]{2/naive.py}
+\lstinputlisting[language=Python, caption="Rabin-Karp Algorithmus"]{2/rk.py}
+
+Das Wort 'whale' kommt 1707x im Roman 'Moby Dick' vor.
+
+Der Algorithmus nach Rabin-Karp ermittelte den Wert unwesentlich schneller.
+
+Aufgabe c:
+
+'sense' kommt 42x vor, 'sensibility' und 'sensible' zusammen 36x.
+
+% /////////////////////// END DOKUMENT /////////////////////////
+\end{document}
+

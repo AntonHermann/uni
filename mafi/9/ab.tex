@@ -1,0 +1,356 @@
+% Dokumentenklasse
+\documentclass[
+% globale Schriftgröße
+    10pt,
+% setzt Absatzabstand hoch
+    parskip=half-,
+% Format
+    paper=a4,
+% lädt Sprachpakete
+    english,ngerman,
+]{scrartcl}
+
+% //////////////////// Pakete laden ////////////////////
+\usepackage{amsmath}
+% modifiziert amsmath
+\usepackage{mathtools}
+% mathematische Symbole, f"ur \ceckmarks
+\usepackage{amssymb}
+% f"ur proof
+\usepackage{amsthm}
+% f"ur \mathscr
+\usepackage{mathrsfs}
+\usepackage{latexsym}
+% f"ur bessere Worttrennung
+\usepackage{microtype}
+% Spracheinstellung
+\usepackage[ngerman]{babel}
+% f"ur Quellcode
+\usepackage{verbatim}
+\usepackage{listings}
+% f"ur Umlaute und Sonderzeichen in der Tex-Datei
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+% f"ur Tabellen mit gleicher Spaltenbreite und automatischen Umbr"uchen
+\usepackage{tabularx}
+\usepackage{fullpage}
+% f"ur multirow in tabulars
+\usepackage{multirow}
+\usepackage{rotate}
+% um Farben zu benutzen, kann mehr als das Paket color
+\usepackage[cmyk,table]{xcolor}
+% Verlinkungen
+\usepackage[
+% farbige Schrift, statt farbiger Rahmen
+    colorlinks,
+% verlinkt im Abb.Verzeichnis Seitenzahl statt Bildunterschrift
+    linktocpage,
+% setzt Farbe der Links auf blau
+    linkcolor=blue
+]{hyperref}
+% nur f"ur digitale Anwendungen, url = "http://www.example.com"
+% f"ur Webadressen wie e-mail usw.: "\url{http://www.example.com}"
+\usepackage{url}
+% f"ur versch. Aufzählungezeichen wie z.B. a)
+\usepackage{enumerate}
+% folgt ein Leerzeichen nach einem \Befehl, wird es nicht verschluckt
+\usepackage{xspace}
+% f"ur das Durchstreichen u.a. in Matheformeln mit \cancel
+\usepackage{cancel}
+% f"ur \forloop und \whiledo
+\usepackage{ifthen}
+
+% //////////////////// Syntaxhervorhebung ////////////////////
+\lstloadlanguages{Python, Haskell, [LaTeX]TeX, Java}
+\lstset{%
+% \scriptsize: die Fontgröße f"ur den Quelltext
+   basicstyle=\footnotesize\ttfamily,
+% legt Farbe der Box fest
+   backgroundcolor = \color{bgcolour},
+% automatische Umbr"uche nur nach Leerzeichen?
+   breakatwhitespace=false,
+% automatische Zeilenumbr"uche?
+   breaklines=true,
+% die "uberschrift steht oben, t = top
+   captionpos=t,
+% Formatierung der Kommentare
+   commentstyle=\color{codeblue}\ttfamily,
+% einfacher Rahmen um den Quelltext
+   frame=single,
+% Behalte Leerzeichen im Quelltext. N"utzlich, um
+% Einr"uckungen zu erhalten (benötigt eventuell columns=flexible)
+   keepspaces=true,
+% Formatierung der Schl"usselwörter
+   keywordstyle=\bfseries\ttfamily\color{codepurple},
+% Wohin mit den Zeilennummern?
+% mögliche Werte sind: none, left, right
+   numbers=left,
+% Formatierung der Zeilennummern
+   numberstyle=\tiny\color{codegreen},
+% Abstand zwischen Zeilennummern und Quelltext
+   numbersep=5pt,
+% nummeriert nur jede i-te Zeile
+   stepnumber=1,
+% Zeige alle Leerzeichen mit Hilfe von speziellen Unterstrichen;
+% "uberschreibt 'showstringspaces'
+   showspaces=false,
+% unterstreiche Leerzeichen nur in Zeichenketten
+   showstringspaces=false,
+% Zeige Tabulatoren in Zeichenketten mit Hilfe von speziellen
+% Unterstrichen
+   showtabs=false,
+   flexiblecolumns=false,
+% Schrittweite zwischen Zeilennummern.
+% Der Wert 1 bedeutet, dass jede Zeile nummeriert wird.
+   tabsize=1,
+% Formatierung der Zeichenketten.
+   stringstyle=\color{orange}\ttfamily,
+% leere Zeilen werden nicht nummeriert
+   numberblanklines=false,
+% Abstand zum linken Seitenrand
+   xleftmargin=1.2em,
+% Abstand zum rechten Seitenrand
+   xrightmargin=0.4em,
+   aboveskip=2ex,
+}
+
+\lstdefinestyle{py}{%
+   language=Python,
+}
+\lstdefinestyle{hs}{%
+   language=Haskell,
+}
+\lstdefinestyle{tex}{%
+    language=[LaTeX]TeX,
+% Um LaTex im Quelltext einzuf"ugen
+    escapeinside={\%*}{*)},
+% Hervorhebung der TeX-Schl"usselwörter
+    texcsstyle=*\bfseries\color{blue},
+    morekeywords={*,$,\{,\},\[,\],lstinputlisting,includegraphics,%$
+        rowcolor,columncolor,listoffigures,lstlistoflistings,
+        subsection,subsubsection,textcolor,tableofcontents,colorbox,
+        fcolorbox,definecolor,cellcolor,url,linktocpage,subtitle,
+        subject,maketitle,usetikzlibrary,node,path,addbibresource,
+        printbibliography},
+    numbers=none,
+    numbersep=0pt,
+    xleftmargin=0.4em,
+}
+
+\lstdefinestyle{java}{%
+    language=Java,
+    extendedchars=true,
+}
+
+% f"uge einen x64-Assembler Dialekt hinzu
+\lstdefinelanguage[x64]{Assembler}
+% basiert auf dem "x86masm" Dialekt
+   [x86masm]{Assembler}
+ % zusätzliche Schl"usselwörter
+   {morekeywords={CDQE,CQO,CMPSQ,CMPXCHG16B,JRCXZ,LODSQ,MOVSXD, %
+                  POPFQ,PUSHFQ,SCASQ,STOSQ,IRETQ,RDTSCP,SWAPGS, %
+                  rax,rdx,rcx,rbx,rsi,rdi,rsp,rbp, %
+                  r8,r8d,r8w,r8b,r9,r9d,r9w,r9b}
+}
+
+\lstdefinestyle{c}{
+    language=c,
+    extendedchars=true,
+}
+
+% //////////////////// eigene Anweisungen ////////////////////
+% benötigt package xspace
+\newcommand\FU{Freie Universit\"at Berlin\xspace}
+\newcommand\gdw{g.\,d.\,w.\xspace}
+\newcommand\oBdA{o.\,B.\,d.\,A.\xspace}
+\newcommand\N{\mathbb{N}\xspace}
+\newcommand\Q{\mathbb{Q}\xspace}
+\newcommand\R{\mathbb{R}\xspace}
+\newcommand\Z{\mathbb{Z}\xspace}
+\newcommand\ohneNull{\ensuremath{\backslash\lbrace 0\rbrace}}% \{0}
+\newcommand\ohne[1]{\ensuremath{\backslash\lbrace#1\rbrace}}% \{#1}
+% Schreibt Befehl \dh in \dhALT um
+\let\dhALT\dh
+%renew "uberschreibt command \dh
+\renewcommand\dh{d.\,h.\xspace}
+\newcommand{\from}{\ensuremath{\colon}}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\abbrev}[2]{\expandafter\newcommand\csname
+                        #1\endcsname{#2\xspace}}
+\newcommand{\cclasss}[2]{\abbrev{#1}{\textsf{#2}}}
+\newcommand{\cclass}[1]{\cclasss{#1}{#1}}
+\cclasss{ccP}{P}
+\cclass{NP}
+\cclass{LOGSPACE}
+\cclass{NL}
+
+% //////////////// mathematische Funktionen ////////////////////
+\DeclareMathOperator{\True}{True}
+\DeclareMathOperator{\False}{False}
+
+% //////////////////// eigene Theoreme ////////////////////
+\newtheorem{theorem}{Satz}
+\newtheorem{corollary}[theorem]{Korollar}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{observation}[theorem]{Beobachtung}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{Literatur}[theorem]{Literatur}
+
+% konfiguriert proof
+\makeatletter
+\newenvironment{Proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep
+        \bfseries
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+% //////////////////// eigene Farben ////////////////////
+\let\definecolor=\xdefinecolor
+\definecolor{FUgreen}{RGB}{153,204,0}
+\definecolor{FUblue}{RGB}{0,51,102}
+
+\definecolor{middlegray}{rgb}{0.5,0.5,0.5}
+\definecolor{lightgray}{rgb}{0.8,0.8,0.8}
+\definecolor{orange}{rgb}{0.8,0.3,0.3}
+\definecolor{azur}{rgb}{0,0.7,1}
+\definecolor{yac}{rgb}{0.6,0.6,0.1}
+\definecolor{Pink}{rgb}{1,0,0.6}
+
+\definecolor{bgcolour}{rgb}{0.97,0.97,0.97}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.35,0.35,0.35}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codeblue}{rgb}{0.4,0.5,1}
+
+% //////////////////// eigene Einstellungen ////////////////////
+
+% verhindert Einr"uckung der 1. Zeile eines Absatzes
+\parindent 0pt
+%
+% <-- Name der "ubungsleitung eintragen
+\newcommand{\tutor}{Serkan Süner}
+% <-- Nummer im KVV nachschauen
+\newcommand{\tutoriumNo}{4}
+% <-- Nummer des "ubungszettels
+\newcommand{\ubungNo}{9}
+% <-- Name der Lehrveranstaltung eintragen
+\newcommand{\veranstaltung}{Mafi 3}
+% <-- z.B. SoSo 17, WiSe 17/18
+\newcommand{\semester}{WiSe 17/18}
+% <-- Hier die Namen eintragen
+\newcommand{\studenten}{Merlin Joseph \& Anton Oehler}
+% <-- Hier Anzahl der Aufgaben eintragen
+\newcommand{\aufgNo}{4}
+
+% /////////////////////// BEGIN DOKUMENT /////////////////////////
+\begin{document}
+% ////////////// Bepunktung //////////////
+%linksb"undig
+\makebox[\dimexpr\textwidth][l]{%
+    \begin{minipage}{\linewidth}
+        \newcounter{AufgNo}
+        \setcounter{AufgNo}{\aufgNo}
+        \stepcounter{AufgNo}   % AufgNo++
+        \newcounter{zahl}
+        \def\and{&\xspace}
+        \renewcommand{\arraystretch}{1.3}\setlength{\tabcolsep}{1em}
+        \begin{tabular}{*{\value{AufgNo}}{|c} |}
+            \hline
+             \setcounter{zahl}{1}
+             \whiledo{\value{zahl} < \value{AufgNo}}{%\AufgNo
+                 \thezahl\and\stepcounter{zahl}%
+             } $\sum$ \\ \hline
+             \setcounter{zahl}{1}
+             \whiledo{\value{zahl} < \value{AufgNo}}{%\AufgNo
+                 \phantom{X}\and\stepcounter{zahl}%
+            } \phantom{X}\\ \hline
+        \end{tabular}
+    \end{minipage}
+}
+% ////////////// Daten //////////////
+\begin{center}
+
+{\Large \veranstaltung, \semester}\par
+{\large Tutor\_in: \tutor, Tutorium \tutoriumNo}\par
+{\Large \"Ubung \ubungNo}\par
+{\large \studenten}\par
+\today
+\end{center}
+\vspace{-3ex}             % Abstand
+\rule{\linewidth}{0.8pt}  % horizontale Linie
+
+% /////////////////////// Aufgabe 1 /////////////////////////
+\section*{Aufgabe 1}
+\begin{enumerate}[a)]
+    \item $f'(x) = \dfrac{5x^3 - 6x^2 + x - 2}{2(x-1)^{\frac{3}{2}}}$
+\end{enumerate}
+
+\section*{Aufgabe 2}
+\begin{enumerate}[a)]
+    \item $f(x) = \tan^2 x + \cot^2 x$\\
+        $f'(x) = \dfrac{64 \sin(4 x)}{4 \cos(4 x) - \cos(8 x) - 3}$\\
+    \item $g(x) = \sqrt{\tan x}$\\
+        $g'(x) = \dfrac{1}{2 \cos^2 x \cdot \sqrt{\dfrac{\sin x}{\cos x}}}$\\
+    \item $h(x) = \sin 2x \cdot \cos^2 x$\\
+        $h'(x) = 2 \cos^2(x) \cdot (2 cos(2 x) - 1)$\\
+\end{enumerate}
+
+
+\section*{Aufgabe 4}
+
+Tier A: $t_A = \dfrac{30}{f_A}$\\
+Tier B: $t_B = \dfrac{10}{f_B} = \dfrac{10}{20-f_A}$\\
+Gesamtzeit: $t(x) = \dfrac{30}{x} + \dfrac{10}{20-x}$\\
+
+Gesucht ist also das Minimum der Funktion $t(x)$. Dazu stellen wir die
+erste Ableitung $t'(x)$ auf:
+
+$t'(x) = \dfrac{10}{(x - 20)^2} - \dfrac{30}{x^2}$\\
+
+Diese wird nun gleich 0 gesetzt, um ein Extremum zu finden:
+
+$0 = \dfrac{10}{(x - 20)^2} - \dfrac{30}{x^2}$\\
+$x_0 = -10(3 - \sqrt{3}) \approx 12.68$\\
+$x_1 =  10(3 + \sqrt{3}) \approx 47.32$\\
+
+Nun müssen wir ermitteln, bei welchem Extremum es sich um ein Minimum handelt.
+Wir setzen Werte im Umfeld von x ein und untersuchen ihr Verhalten:\\
+\begin{tabular}{ l | l }
+    $x$ & $f(x)$\\
+    \hline
+    $10$    & $4.0$\\
+    $12$    & $3.75$\\
+    $12,6$  & $3.732303$\\
+    $12,67$ & $3.732054$\\
+    $-10(3 - \sqrt{3}) \approx 12.68$ & $3.732050$\\
+    $12,69$ & $3.732055$\\
+    $12,7$  & $3.732067$\\
+    $13$    & $3.736263$\\
+    $15$    & $4.0$\\
+    \hline
+    \hline
+    $45$    & $0.2666666666666667$\\
+    $47$    & $0.2679275019700552$\\
+    $47,3$  & $0.2679491051584075$\\
+    $47,31$ & $0.2679491695317182$\\
+    $10(3 + \sqrt{3}) \approx 47,32$ & $0.2679491924311228$\\
+    $47,33$ & $0.2679491737679769$\\
+    $47,4$  & $0.2679478887554283$\\
+    $48$    & $0.2678571428571429$\\
+    $50$    & $0.2666666666666667$\\
+\end{tabular}
+
+Wir sehen: Bei $x_0$ handelt es sich um ein lokales Minimum.\\
+Die optimale Verteilung ist also:\\
+Tier A: 12,68kg und Tier B: 7.32kg
+
+% /////////////////////// END DOKUMENT /////////////////////////
+\end{document}
+

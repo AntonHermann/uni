@@ -1,0 +1,9 @@
+# latex intermediate files
+
+*.aux
+*.log
+*.out
+*.pdf
+
+# java class files
+*.class
